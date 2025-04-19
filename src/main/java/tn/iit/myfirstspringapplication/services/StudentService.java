@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class StudentService {
+
     private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
@@ -21,6 +22,7 @@ public class StudentService {
         student.setAge(studentDTO.getAge());
         student.setName(studentDTO.getFirstName() + " " + studentDTO.getLastName());
         return studentRepository.save(student);
+
     }
 
     public Student getStudentById(Long id) {
