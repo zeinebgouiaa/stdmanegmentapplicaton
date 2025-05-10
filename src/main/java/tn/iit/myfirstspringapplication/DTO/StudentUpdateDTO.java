@@ -1,9 +1,12 @@
 package tn.iit.myfirstspringapplication.DTO;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class StudentUpdateDTO {
-    private int age;
-    private double average;
+    private String name;
+    private Integer age;
+    private Double averageGrade;
 }

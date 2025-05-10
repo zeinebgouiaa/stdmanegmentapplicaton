@@ -1,28 +1,25 @@
 package tn.iit.myfirstspringapplication.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.iit.myfirstspringapplication.models.StudentSubject;
 import tn.iit.myfirstspringapplication.services.StudentSubjectService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/subjects")
 public class SubjectController {
+    private final StudentSubjectService subjectService;
 
-    private final StudentSubjectService studentSubjectService;
-
-    public SubjectController(StudentSubjectService studentSubjectService){
-        this.studentSubjectService = studentSubjectService;
+    public SubjectController(StudentSubjectService subjectService) {
+        this.subjectService = subjectService;
     }
 
-    @PostMapping("{studentId}")
-    public StudentSubject createStudentSubject(@PathVariable Long studentId, @RequestBody StudentSubject subject) {
-        return studentSubjectService.createSubject(studentId, subject);
-    }
-
-    @GetMapping("")
-    public List<StudentSubject> getAllSubjects(){
-        return studentSubjectService.getAllSubjects();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSubject(@PathVariable Long id) {
+        try {
+            subjectService.deleteSubject(id);
+            return ResponseEntity.ok("Subject with ID " + id + " was deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 }
